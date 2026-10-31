@@ -13,14 +13,23 @@
 import sys
 import time
 import json
+import os
+from pathlib import Path
 try:
     import requests
 except ImportError:
     print("Нет библиотеки requests. Установи:  python -m pip install requests")
     sys.exit(1)
 
-TOKEN = "ВСТАВЬ_СЮДА_ТОКЕН"          # ← токен от @BotFather
-API = "https://api.telegram.org/bot" + TOKEN
+def read_token():
+    """Токен берётся из переменной окружения BOT_TOKEN или из файла token.local.txt"""
+    tok = os.environ.get("BOT_TOKEN")
+    if tok:
+        return tok.strip()
+    f = Path(__file__).with_name("token.local.txt")
+    if f.exists():
+        return f.read_text(encoding="utf-8").strip()
+    return TOKEN
 
 current_url = None  # текущий https-адрес сайта
 
@@ -88,6 +97,13 @@ def on_message(m):
 
 
 def main():
+    global API
+    tok = read_token()
+    API = "https://api.telegram.org/bot" + tok
+    if "ВСТАВЬ" in tok or not tok:
+        print("Нет токена! Создай файл token.local.txt и вставь туда токен от @BotFather.")
+        return
+
     url = None
     for arg in sys.argv[1:]:
         if arg.startswith("https://"):

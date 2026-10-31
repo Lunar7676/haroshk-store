@@ -15,7 +15,7 @@
 
 /* Настройки магазина */
 const CONFIG = {
-  tgUser: "haroshk_store_bot",   // ← сюда впиши свой Telegram-юзер бота
+  tgUser: "melorazm_shop_bot",  // ← сюда впиши свой Telegram-юзер бота
   usdRate: 42                    // курс для пересчёта ₴ → $
 };
 
