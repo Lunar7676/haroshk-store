@@ -450,6 +450,58 @@ function initReveal(){
   document.querySelectorAll('.reveal:not(.vis)').forEach(el=>io.observe(el));
 }
 
+/* ── Scroll-spy: активная навигация следует за скроллом ── */
+function initNavSpy(){
+  const pills = [...document.querySelectorAll('.nav-pill')];
+  const byHash = {};
+  pills.forEach(p => byHash[p.getAttribute('href').slice(1)] = p);
+
+  const sections = ['catalog','how','about','support']
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+
+  const setActive = (hash)=>{
+    pills.forEach(p => p.classList.toggle('is-active', p.getAttribute('href') === '#'+hash));
+  };
+
+  // фоллбек: самая близкая к верху секция
+  const topHash = ()=>{
+    let best = 'catalog', bestDelta = Infinity;
+    for(const s of sections){
+      const delta = Math.abs(s.getBoundingClientRect().top - 140);
+      if(delta < bestDelta){ bestDelta = delta; best = s.id; }
+    }
+    return best;
+  };
+
+  const io = new IntersectionObserver(entries=>{
+    // при скролле вниз выбираем верхнюю пересекаемую секцию
+    let current = null;
+    for(const e of entries){
+      if(e.isIntersecting) current = current || e.target.id;
+    }
+    const cur = current || topHash();
+    if(byHash[cur] && !byHash[cur].classList.contains('is-active')){
+      setActive(cur);
+      tgHaptic('light');
+    }
+  },{
+    rootMargin: '-45% 0px -50% 0px',
+    threshold: 0
+  });
+  sections.forEach(s => io.observe(s));
+
+  // клик по пилюле — сразу подсветить и проскроллить
+  pills.forEach(p=>{
+    p.addEventListener('click', ()=>{
+      setActive(p.getAttribute('href').slice(1));
+    });
+  });
+
+  // при загрузке — каталог
+  setActive('catalog');
+}
+
 /* ═══ INIT ═══ */
 document.addEventListener('DOMContentLoaded', ()=>{
   tgInit();
@@ -459,6 +511,7 @@ document.addEventListener('DOMContentLoaded', ()=>{
   renderCatalog();
   initReveal();
   initCarousels();
+  initNavSpy();
   updateCartBadge();
 
   /* хедер */
