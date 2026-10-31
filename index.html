@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Haroshk Store</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="app" id="app">
+
+  <!-- ═══ ХЕДЕР ═══ -->
+  <header class="header">
+    <a class="logo" href="#top">
+      <span class="logo-text">HAROSHK<span class="logo-dot">.</span></span>
+      <span class="logo-sub">store</span>
+    </a>
+    <div class="header-actions">
+      <button class="icon-btn" id="cartBtn" aria-label="Кошик">
+        <svg class="ic" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M1 2h4l2.6 13.5a1.5 1.5 0 0 0 1.48 1.25h10.14a1.5 1.5 0 0 0 1.47-1.18L23 7H6"/></svg>
+        <span class="cart-count" id="cartCount" hidden>0</span>
+      </button>
+      <button class="icon-btn" id="themeBtn" aria-label="Тема">
+        <svg class="ic icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M2 12h2.5M19.5 12H22M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>
+        <svg class="ic icon-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="icon-btn" id="settingsBtn" aria-label="Налаштування">
+        <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- ═══ НАВІГАЦІЯ ═══ -->
+  <nav class="nav-wrap">
+    <div class="nav" id="nav">
+      <a class="nav-pill is-active" href="#catalog">Каталог</a>
+      <a class="nav-pill" href="#how">Як замовити</a>
+      <a class="nav-pill" href="#about">Про нас</a>
+      <a class="nav-pill" href="#support">Підтримка</a>
+    </div>
+  </nav>
+
+  <main class="main" id="top">
+
+    <!-- ═══ HERO ═══ -->
+    <section class="hero card reveal">
+      <div class="hero-sticker">
+        <div class="sticker-tile">
+          <svg class="ic ic-xl" viewBox="0 0 24 24"><path d="M16.5 9.4 7.55 4.24"/><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.29 7 12 12 20.71 7"/><line x1="12" y1="22" x2="12" y2="12"/></svg>
+          <span class="status-chip"><i class="chip-dot"></i> HAROSHK STORE</span>
+        </div>
+      </div>
+      <p class="hero-eyebrow">Офіційний магазин • Haroshk Store</p>
+      <h1 class="hero-title">PRINT YOUR <span class="accent-text">OWN STYLE!</span></h1>
+      <p class="hero-sub">Вітаю в магазині Haroshk Store! Тут ви можете замовити 3D-моделі, фігурки, артикульованих драконів та декор — надруковано з любов'ю.</p>
+      <div class="hero-btns">
+        <a class="btn btn-grad" href="#catalog">Перейти до каталогу
+          <svg class="ic" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><polyline points="19 12 12 19 5 12"/></svg>
+        </a>
+        <a class="btn btn-white" href="#support">
+          <svg class="ic" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Написати в Telegram
+        </a>
+      </div>
+      <div class="stats">
+        <div class="stat">
+          <div class="stat-num">100<i>%</i></div>
+          <div class="stat-cap">Оригінальні моделі</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">1-2<i>дні</i></div>
+          <div class="stat-cap">Друк на замовлення</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">1-5<i>днів</i></div>
+          <div class="stat-cap">Відправка Новою Поштою</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ КАТАЛОГ ═══ -->
+    <section id="catalog" class="catalog">
+      <div class="section-head reveal">
+        <span class="section-tag">01 / Haroshk Store</span>
+        <h2 class="section-title">3D-моделі та фігурки</h2>
+        <p class="section-sub">Лімітовані друки з доставкою Новою Поштою по всій Україні</p>
+      </div>
+      <div id="catalogList"></div>
+    </section>
+
+    <!-- ═══ ЯК ЗАМОВИТИ ═══ -->
+    <section id="how" class="info-section">
+      <div class="section-head reveal">
+        <span class="section-tag">02 / Як замовити</span>
+        <h2 class="section-title">Простий процес</h2>
+      </div>
+      <div class="steps">
+        <div class="step card reveal">
+          <div class="step-icon">
+            <svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          </div>
+          <div class="step-body"><span class="step-num">01</span><h3>Обери модель</h3><p>Знайди фігурку в каталозі та відкрий її карточку.</p></div>
+        </div>
+        <div class="step card reveal">
+          <div class="step-icon">
+            <svg class="ic" viewBox="0 0 24 24"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+          </div>
+          <div class="step-body"><span class="step-num">02</span><h3>Напиши в Telegram</h3><p>Натисни «Замовити» — я відповім і уточню кольори та розмір.</p></div>
+        </div>
+        <div class="step card reveal">
+          <div class="step-icon">
+            <svg class="ic" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/><line x1="6" y1="15" x2="10" y2="15"/></svg>
+          </div>
+          <div class="step-body"><span class="step-num">03</span><h3>Оплати</h3><p>Оплата на карту або наложений платіж — як зручно.</p></div>
+        </div>
+        <div class="step card reveal">
+          <div class="step-icon">
+            <svg class="ic" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M1 2h4l2.6 13.5a1.5 1.5 0 0 0 1.48 1.25h10.14a1.5 1.5 0 0 0 1.47-1.18L23 7H6"/></svg>
+          </div>
+          <div class="step-body"><span class="step-num">04</span><h3>Отримай</h3><p>Друк 1-2 дні, відправка Новою Поштою по Україні.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ ПРО НАС ═══ -->
+    <section id="about" class="info-section">
+      <div class="section-head reveal">
+        <span class="section-tag">03 / Про нас</span>
+        <h2 class="section-title">Хто друкує?</h2>
+      </div>
+      <div class="card about-card reveal">
+        <div class="about-icon">
+          <svg class="ic" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8" rx="1"/></svg>
+        </div>
+        <p>Haroshk Store — маленька 3D-майстерня. Друкую фігурки, декор та корисні штуки на якісному обладнанні, перевіряю кожну модель перед відправкою. Кожен друк — оригінальна модель.</p>
+        <div class="about-tags"><span>PLA+</span><span>PETG</span><span>0.12mm</span><span>Ручна перевірка</span></div>
+      </div>
+    </section>
+
+    <!-- ═══ ПІДТРИМКА ═══ -->
+    <section id="support" class="info-section">
+      <div class="section-head reveal">
+        <span class="section-tag">04 / Підтримка</span>
+        <h2 class="section-title">Не пропусти нове</h2>
+      </div>
+      <div class="card about-card reveal">
+        <div class="about-icon">
+          <svg class="ic" viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        </div>
+        <p>Нові моделі з'являються постійно. Підписуйся на YouTube-канал та напиши в Telegram, якщо є бажане замовлення або питання.</p>
+        <div class="hero-btns">
+          <a class="btn btn-white" href="#support">
+            <svg class="ic ic-yt" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="4"/><path class="tri" d="M10 9l5 3-5 3z"/></svg>
+            YouTube
+          </a>
+          <a class="btn btn-grad" href="#support">
+            <svg class="ic" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            Написати
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p class="footer-line">— Haroshk Store • друк того, що тобі до вподоби —</p>
+    </footer>
+
+  </main>
+</div>
+
+<!-- ═══ КАРТОЧКА ТОВАРА ═══ -->
+<div class="product-view" id="productView" aria-hidden="true">
+  <div class="pv-inner" id="productViewInner"></div>
+</div>
+
+<!-- ═══ НАЛАШТУВАННЯ ═══ -->
+<div class="settings-sheet" id="settingsSheet" aria-hidden="true">
+  <div class="settings-backdrop" data-close></div>
+  <div class="settings-card">
+    <div class="sheet-handle"></div>
+    <h3>Налаштування</h3>
+    <a class="settings-row" href="#catalog" data-close>
+      <span class="row-icon">
+        <svg class="ic" viewBox="0 0 24 24"><circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M1 2h4l2.6 13.5a1.5 1.5 0 0 0 1.48 1.25h10.14a1.5 1.5 0 0 0 1.47-1.18L23 7H6"/></svg>
+      </span>
+      <div><b>Каталог</b><span class="row-sub">Перейти до моделей</span></div>
+    </a>
+    <a class="settings-row" href="#support" data-close>
+      <span class="row-icon">
+        <svg class="ic ic-yt" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="4"/><path class="tri" d="M10 9l5 3-5 3z"/></svg>
+      </span>
+      <div><b>YouTube</b><span class="row-sub">Огляди та нові друки</span></div>
+    </a>
+    <a class="settings-row" href="#support" data-close>
+      <span class="row-icon">
+        <svg class="ic" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </span>
+      <div><b>Telegram</b><span class="row-sub">Замовлення та питання</span></div>
+    </a>
+    <button class="settings-row" id="setThemeRow">
+      <span class="row-icon">
+        <svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1.5" x2="12" y2="3.5"/><line x1="12" y1="20.5" x2="12" y2="22.5"/><line x1="3.9" y1="3.9" x2="5.3" y2="5.3"/><line x1="18.7" y1="18.7" x2="20.1" y2="20.1"/><line x1="1.5" y1="12" x2="3.5" y2="12"/><line x1="20.5" y1="12" x2="22.5" y2="12"/><line x1="3.9" y1="20.1" x2="5.3" y2="18.7"/><line x1="18.7" y1="5.3" x2="20.1" y2="3.9"/></svg>
+      </span>
+      <div><b>Темна тема</b><span class="row-sub">Переключити оформлення</span></div>
+      <span class="sw" id="swTheme"></span>
+    </button>
+    <button class="settings-row" id="curRow">
+      <span class="row-icon">
+        <svg class="ic" viewBox="0 0 24 24"><line x1="12" y1="2" x2="12" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </span>
+      <div><b>Валюта цін</b><span class="row-sub">В якій валюті показувати ціни</span></div>
+      <span class="sw-value" id="curVal">₴ ГРН</span>
+    </button>
+    <button class="settings-row" data-switch="anim">
+      <span class="row-icon">
+        <svg class="ic" viewBox="0 0 24 24"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg>
+      </span>
+      <div><b>Анімації</b><span class="row-sub">Плавні переходи та поява</span></div>
+      <span class="sw" data-sw></span>
+    </button>
+    <button class="settings-row" data-switch="haptic">
+      <span class="row-icon">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+      </span>
+      <div><b>Вібрація</b><span class="row-sub">Оповіщення при діях (в Telegram)</span></div>
+      <span class="sw" data-sw></span>
+    </button>
+  </div>
+</div>
+
+<!-- ═══ КОШИК ═══ -->
+<div class="settings-sheet" id="cartSheet" aria-hidden="true">
+  <div class="settings-backdrop" data-close-cart></div>
+  <div class="settings-card">
+    <div class="sheet-handle"></div>
+    <h3>Кошик</h3>
+    <div id="cartList"></div>
+    <div class="cart-total" id="cartTotalRow" hidden>
+      <span>Разом</span><b class="t-sum" id="cartTotal">—</b>
+    </div>
+    <button class="btn btn-grad" id="cartOrder" style="width:100%">
+      <svg class="ic" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      Оформити замовлення
+    </button>
+  </div>
+</div>
+
+<script src="js/products.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
