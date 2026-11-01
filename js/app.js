@@ -2,7 +2,7 @@
    app.js — каталог, карусели, карточки, корзина, настройки, Telegram API
    ═══════════════════════════════════════════════════════════════════════════*/
 
-window.__HS_BUILD = "v4-20261101"; // маркер версии для отладки кеша
+window.__HS_BUILD = "v5-20261101"; // маркер версии для отладки кеша
 
 const tg = window.Telegram?.WebApp;
 
@@ -483,8 +483,10 @@ function initNavSpy(){
       if(s.getBoundingClientRect().top <= LINE) id = s.id;
       else break;
     }
-    // доскроллили до самого низа — набираем последнюю секцию
-    if(window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4){
+    // доскроллили до самого низа → активна последняя секция
+    // (у коротких финальных секций top может не дойти до линии)
+    const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+    if(window.scrollY >= maxScroll - 60){
       id = sections[sections.length-1].id;
     }
     setActive(id);
