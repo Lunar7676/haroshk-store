@@ -488,24 +488,32 @@ function initNavSpy(){
     setActive(id);
   }
 
+  let unlockTimer = null;
+
   function onScroll(){
     if(raf) return;
     raf = requestAnimationFrame(()=>{
       raf = null;
+      if(locked){
+        // скролл ещё едет после клика — продлеваем блокировку,
+        // снимем её, как только прокрутка реально остановится
+        clearTimeout(unlockTimer);
+        unlockTimer = setTimeout(()=>{ locked = false; compute(); }, 180);
+        return;
+      }
       // сбросить незакрытый дебаунс: ждём, пока скролл реально остановился
       clearTimeout(settle);
       settle = setTimeout(()=>{ if(!locked) compute(); }, 70);
     });
   }
 
-  // клик по пилюле: сразу подсветить, заблокировать смену, а после
-  // доката плавного скролла — пересчитать точно
+  // клик по пилюле: сразу подсветить выбранную и держать до последнего
+  // пикселя плавного скролла — без пролистывания промежуточных секций
   pills.forEach(p=>{
     p.addEventListener('click', ()=>{
       setActive(p.getAttribute('href').slice(1));
       clearTimeout(settle);
       locked = true;
-      setTimeout(()=>{ locked = false; compute(); }, 750);
     });
   });
 
