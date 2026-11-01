@@ -489,16 +489,26 @@ function initNavSpy(){
   }
 
   let unlockTimer = null;
+  let clickTarget = null;   // секция, куда ведёт плавный скролл после клика
 
   function onScroll(){
     if(raf) return;
     raf = requestAnimationFrame(()=>{
       raf = null;
       if(locked){
-        // скролл ещё едет после клика — продлеваем блокировку,
-        // снимем её, как только прокрутка реально остановится
+        // достигли цели клика? → блокировку снять и пересчитать
+        if(clickTarget && Math.abs(clickTarget.getBoundingClientRect().top - LINE) < 130){
+          clearTimeout(unlockTimer);
+          locked = false;
+          clickTarget = null;
+          compute();
+          return;
+        }
+        // скролл после клика ещё едет — держим выбранную пилюлю;
+        // страховка: если прокрутка остановилась (прервана пальцем),
+        // снимаем блокировку после 180мс тишины
         clearTimeout(unlockTimer);
-        unlockTimer = setTimeout(()=>{ locked = false; compute(); }, 180);
+        unlockTimer = setTimeout(()=>{ locked = false; clickTarget = null; compute(); }, 180);
         return;
       }
       // сбросить незакрытый дебаунс: ждём, пока скролл реально остановился
@@ -507,13 +517,15 @@ function initNavSpy(){
     });
   }
 
-  // клик по пилюле: сразу подсветить выбранную и держать до последнего
-  // пикселя плавного скролла — без пролистывания промежуточных секций
+  // клик по пилюле: сразу подсветить выбранную и держать всю дорогу
+  // плавного скролла — без показа промежуточных секций
   pills.forEach(p=>{
     p.addEventListener('click', ()=>{
-      setActive(p.getAttribute('href').slice(1));
+      const hash = p.getAttribute('href').slice(1);
+      setActive(hash);
       clearTimeout(settle);
       locked = true;
+      clickTarget = document.getElementById(hash) || null;
     });
   });
 
