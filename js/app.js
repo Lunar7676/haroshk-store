@@ -450,56 +450,67 @@ function initReveal(){
   document.querySelectorAll('.reveal:not(.vis)').forEach(el=>io.observe(el));
 }
 
-/* ── Scroll-spy: активная навигация следует за скроллом ── */
+/* ── Scroll-spy: активная навигация следует за скроллом ──
+   Не по IntersectionObserver (моргает на быстрых пролётах),
+   а по позиции: активна та секция, которую пересекает линия
+   под хедером + навом. Плюс дебаунс 70мс и блокировка на время
+   плавного скролла после клика — никакого мелькания. */
 function initNavSpy(){
   const pills = [...document.querySelectorAll('.nav-pill')];
-  const byHash = {};
-  pills.forEach(p => byHash[p.getAttribute('href').slice(1)] = p);
-
   const sections = ['catalog','how','about','support']
     .map(id => document.getElementById(id))
     .filter(Boolean);
 
-  const setActive = (hash)=>{
-    pills.forEach(p => p.classList.toggle('is-active', p.getAttribute('href') === '#'+hash));
-  };
+  const LINE = 150;           // зона «активности»: сразу под хедером+навом
+  let current = null;         // текущая секция
+  let raf = null;             // pending rAF
+  let settle = null;          // таймер дебаунса
+  let locked = false;         // блокировка на время программного скролла
 
-  // фоллбек: самая близкая к верху секция
-  const topHash = ()=>{
-    let best = 'catalog', bestDelta = Infinity;
+  function setActive(hash){
+    if(hash === current) return;
+    current = hash;
+    pills.forEach(p => p.classList.toggle('is-active',
+      p.getAttribute('href') === '#'+hash));
+  }
+
+  function compute(){
+    // какая секция лежит под линией LINE — та и активна
+    let id = 'catalog';
     for(const s of sections){
-      const delta = Math.abs(s.getBoundingClientRect().top - 140);
-      if(delta < bestDelta){ bestDelta = delta; best = s.id; }
+      if(s.getBoundingClientRect().top <= LINE) id = s.id;
+      else break;
     }
-    return best;
-  };
+    // доскроллили до самого низа — набираем последнюю секцию
+    if(window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4){
+      id = sections[sections.length-1].id;
+    }
+    setActive(id);
+  }
 
-  const io = new IntersectionObserver(entries=>{
-    // при скролле вниз выбираем верхнюю пересекаемую секцию
-    let current = null;
-    for(const e of entries){
-      if(e.isIntersecting) current = current || e.target.id;
-    }
-    const cur = current || topHash();
-    if(byHash[cur] && !byHash[cur].classList.contains('is-active')){
-      setActive(cur);
-      tgHaptic('light');
-    }
-  },{
-    rootMargin: '-45% 0px -50% 0px',
-    threshold: 0
-  });
-  sections.forEach(s => io.observe(s));
+  function onScroll(){
+    if(raf) return;
+    raf = requestAnimationFrame(()=>{
+      raf = null;
+      // сбросить незакрытый дебаунс: ждём, пока скролл реально остановился
+      clearTimeout(settle);
+      settle = setTimeout(()=>{ if(!locked) compute(); }, 70);
+    });
+  }
 
-  // клик по пилюле — сразу подсветить и проскроллить
+  // клик по пилюле: сразу подсветить, заблокировать смену, а после
+  // доката плавного скролла — пересчитать точно
   pills.forEach(p=>{
     p.addEventListener('click', ()=>{
       setActive(p.getAttribute('href').slice(1));
+      clearTimeout(settle);
+      locked = true;
+      setTimeout(()=>{ locked = false; compute(); }, 750);
     });
   });
 
-  // при загрузке — каталог
-  setActive('catalog');
+  window.addEventListener('scroll', onScroll, {passive:true});
+  compute();
 }
 
 /* ═══ INIT ═══ */
