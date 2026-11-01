@@ -61,7 +61,7 @@ def on_message(m):
     if text.startswith("/start") or text.startswith("/shop"):
         if m.get("web_app_data") is None:
             api("sendMessage", chat_id=cid, parse_mode="Markdown",
-                text="*Haroshk Store* 🛒\n3D-моделі, фігурки та декор.\n\nНатисни кнопку нижче, щоб відкрити магазин 👇",
+                text="*Haroshk Shop* 🛒\n3D-моделі, фігурки та декор.\n\nНатисни кнопку нижче, щоб відкрити магазин 👇",
                 reply_markup={
                     "inline_keyboard": [[
                         {"text": "🛒 Відкрити магазин", "web_app": {"url": current_url}}

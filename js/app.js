@@ -2,7 +2,7 @@
    app.js — каталог, карусели, карточки, корзина, настройки, Telegram API
    ═══════════════════════════════════════════════════════════════════════════*/
 
-window.__HS_BUILD = "v5-20261101"; // маркер версии для отладки кеша
+window.__HS_BUILD = "v6-shop-20261101";
 
 const tg = window.Telegram?.WebApp;
 
@@ -171,7 +171,7 @@ function orderCart(){
   }).filter(Boolean);
   const sum = cartSum();
   const msg =
-    `🛒 *Замовлення Haroshk Store*\n\n${lines.join('\n')}\n\n` +
+    `🛒 *Замовлення Haroshk Shop*\n\n${lines.join('\n')}\n\n` +
     (sum>0 ? `*Разом: ${fmt(sum)}*\n\n` : '') +
     `Напишіть, будь ласка, деталі замовлення кольори/розміри.`;
   const deep = encodeURIComponent(msg);
@@ -186,7 +186,7 @@ function orderCart(){
 
 function orderOne(item){
   const pr = fmt(item.price) || 'ціна уточнюється';
-  const msg = `🛒 *Замовлення Haroshk Store*\n\n• ${item.name} — ${pr}\n\nНапишіть, будь ласка, деталі замовлення кольори/розміри.`;
+  const msg = `🛒 *Замовлення Haroshk Shop*\n\n• ${item.name} — ${pr}\n\nНапишіть, будь ласка, деталі замовлення кольори/розміри.`;
   const url = `https://t.me/${CONFIG.tgUser}?text=${encodeURIComponent(msg)}`;
   try{ tg?.openTelegramLink?.(url); }catch(e){ window.open(url,'_blank'); }
   tgHaptic('success');
@@ -375,7 +375,7 @@ function openProduct(id){
         </div>
       </div>
 
-      <div class="pv-tag">${item.tag||'Haroshk Store'}</div>
+      <div class="pv-tag">${item.tag||'Haroshk Shop'}</div>
       <h1 class="pv-name">${item.name}</h1>
       <p class="pv-desc">${item.desc||''}</p>
     </div>
@@ -391,7 +391,7 @@ function openProduct(id){
     </div>
 
     <div class="pv-backcard">
-      <div class="cap">Haroshk Store • Оригінальний друк</div>
+      <div class="cap">Haroshk Shop • Оригінальний друк</div>
       <div class="phs">${CATEGORIES.flatMap(c=>c.items).slice(0,4).map(i=>icon(i.icon||'cubes')).join('')}</div>
     </div>
   `;
