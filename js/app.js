@@ -2,7 +2,7 @@
    app.js — каталог, карусели, карточки, корзина, настройки, Telegram API
    ═══════════════════════════════════════════════════════════════════════════*/
 
-window.__HS_BUILD = "v6-shop-20261101";
+window.__HS_BUILD = "v7-mobile-20261101";
 
 const tg = window.Telegram?.WebApp;
 
@@ -463,7 +463,12 @@ function initNavSpy(){
     .map(id => document.getElementById(id))
     .filter(Boolean);
 
-  const LINE = 150;           // зона «активности»: сразу под хедером+навом
+  // линия «активности» = нижняя грань хедера+нава + запас
+  // (на разных устройствах она своя, поэтому не хардкод)
+  const line = () => {
+    const nav = document.querySelector('.nav-wrap');
+    return (nav ? nav.getBoundingClientRect().bottom : 150) + 8;
+  };
   let current = null;         // текущая секция
   let raf = null;             // pending rAF
   let settle = null;          // таймер дебаунса
@@ -479,8 +484,9 @@ function initNavSpy(){
   function compute(){
     // какая секция лежит под линией LINE — та и активна
     let id = 'catalog';
+    const L = line();
     for(const s of sections){
-      if(s.getBoundingClientRect().top <= LINE) id = s.id;
+      if(s.getBoundingClientRect().top <= L) id = s.id;
       else break;
     }
     // доскроллили до самого низа → активна последняя секция
@@ -501,7 +507,7 @@ function initNavSpy(){
       raf = null;
       if(locked){
         // достигли цели клика? → блокировку снять и пересчитать
-        if(clickTarget && Math.abs(clickTarget.getBoundingClientRect().top - LINE) < 130){
+        if(clickTarget && Math.abs(clickTarget.getBoundingClientRect().top - line()) < 130){
           clearTimeout(unlockTimer);
           locked = false;
           clickTarget = null;
